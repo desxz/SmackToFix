@@ -20,6 +20,8 @@ final class OverlayWindowManager {
     private var captures: [DisplayCapture] = []
     private var fallbackTimer: Timer?
     private var collapsing = false
+    /// Screen Recording prompts once per launch. Asking again shows the system alert even when the switch is already on.
+    private var captureDeclined = false
 
     var windowIDs: [CGWindowID] {
         overlays.compactMap { overlay in
@@ -58,11 +60,7 @@ final class OverlayWindowManager {
     }
 
     func startCapture() async -> Bool {
-        guard !overlays.isEmpty else { return false }
-        if !CGPreflightScreenCaptureAccess() {
-            _ = CGRequestScreenCaptureAccess()
-        }
-        guard CGPreflightScreenCaptureAccess() else { return false }
+        guard !overlays.isEmpty, !captureDeclined else { return false }
 
         if windowIDs.isEmpty {
             try? await Task.sleep(nanoseconds: 80_000_000)
@@ -72,6 +70,7 @@ final class OverlayWindowManager {
         do {
             content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: false)
         } catch {
+            captureDeclined = true
             return false
         }
 

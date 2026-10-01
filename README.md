@@ -45,9 +45,9 @@ The first glitch waits at least 30 seconds, then arrives on the schedule you set
 SmackToFix asks the first time you trigger a glitch or open **Test Slap Sensitivity**. It does not ask at launch.
 
 - **Microphone.** On only during a glitch or a sensitivity test, and aimed at the built-in mic. It is listening for a thump, not a conversation. Nothing is recorded.
-- **Screen Recording.** The glitch is the desktop, bent. Frames stay in memory and are thrown away when the set “turns off.” If you deny this, you still get an overlay of scanlines and tear bars, and clicks still pass through.
+- **Screen Recording.** The glitch is the desktop, bent. Frames stay in memory and are thrown away when the set “turns off.” If you deny this, you still get an overlay of scanlines and tear bars, and clicks still pass through. The alert appears once per launch. A later glitch does not ask again.
 
-If a rebuild starts falling back to the overlay, open **System Settings → Privacy & Security → Screen Recording**, turn SmackToFix off, and turn it on again. Ad-hoc signatures change when the binary changes, and macOS treats that as a new stranger.
+If the switch in **System Settings → Privacy & Security → Screen Recording** is already on and the alert still appears, turn SmackToFix off and on again, then quit and reopen the app. A rebuilt binary is a new stranger to macOS, and the old switch does not cover it.
 
 ## The menu
 
