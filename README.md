@@ -8,14 +8,29 @@ Percussive maintenance for Mac.
 
 Old televisions had a repair procedure. You hit them. The solder remembered its job, the picture locked, and everyone pretended this was normal. SmackToFix restores the ritual. At random, your desktop loses horizontal sync. Scanlines, a little RGB split, a bored electrical hum. The fix is not in System Settings. The fix is the palm of your hand on the aluminum.
 
+## Install
+
+macOS 14 or later. Apple silicon or Intel. Xcode is only for people changing the code.
+
+Homebrew:
+
+```bash
+brew install --cask desxz/smacktofix/smacktofix
+```
+
+Or download [SmackToFix.dmg](https://github.com/desxz/SmackToFix/releases/latest/download/SmackToFix.dmg), open it, and drag the app to Applications. The first time, right-click the app and choose **Open**. The build is not notarized, so a normal double-click makes macOS call it damaged.
+
+Look in the menu bar. There is no Dock icon.
+
 ## What you need
 
-- macOS 14 or later
+- macOS 14 or later, Apple silicon or Intel
 - A Mac with a built-in microphone (the lid, not your AirPods)
-- Xcode 16 or later
 - Permission to look a little unwell on a call
 
 ## Build and run
+
+From source you also need Xcode 16 or later.
 
 1. Open `SmackToFix.xcodeproj`.
 2. Run the **SmackToFix** scheme.

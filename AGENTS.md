@@ -19,7 +19,7 @@ open ~/Library/Developer/Xcode/DerivedData/SmackToFix-*/Build/Products/Debug/Sma
 
 Executing the binary directly never creates the status item. After a rebuild, Screen Recording permission often needs to be toggled off and on in System Settings, because the ad-hoc signature changed.
 
-Target facts: macOS 14+, arm64, Swift 5 language mode, App Sandbox off, `CODE_SIGN_IDENTITY = "-"`, `ENABLE_DEBUG_DYLIB = NO`, bundle id `com.smacktofix.SmackToFix`.
+Target facts: macOS 14+, Swift 5 language mode, App Sandbox off, `CODE_SIGN_IDENTITY = "-"`, `ENABLE_DEBUG_DYLIB = NO`, bundle id `com.smacktofix.SmackToFix`. `scripts/build-release.sh` produces a universal (arm64 and x86_64) `dist/SmackToFix.zip` and `dist/SmackToFix.dmg`. A `v*` tag publishes both. People install with `brew install --cask desxz/smacktofix/smacktofix` from the `desxz/homebrew-smacktofix` tap, or by dragging the dmg into Applications. The ad-hoc signature is not notarized, so a browser download needs right-click Open the first time. Do not add a curl-pipe installer.
 
 ## Where things live
 
@@ -35,6 +35,7 @@ Target facts: macOS 14+, arm64, Swift 5 language mode, App Sandbox off, `CODE_SI
 | `GlitchFrameProcessor.swift` | Core Image: RGB split, displacement, stripes, roll |
 | `CRTGlitchView.swift` | Collapse animation and the capture-denied veil |
 | `SmackToFixTests/ImpactDetectorTests.swift` | Classifier only. No microphone. |
+| `scripts/build-release.sh` | Universal Release zip and dmg |
 
 `assets/logo.png` is the README mark. `SmackToFix/AppIcon.icns` is the Finder icon. The menu bar does not use either of them.
 
