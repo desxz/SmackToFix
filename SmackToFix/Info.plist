@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleName</key>
+	<string>sMACk</string>
+	<key>CFBundleDisplayName</key>
+	<string>sMACk</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
@@ -29,8 +33,8 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>SmackToFix listens for a smack on the aluminum chassis so it can stop pretending your Mac is a dying television. The microphone is only on during a glitch or a sensitivity test.</string>
+	<string>sMACk listens for a smack on the aluminum chassis so it can stop pretending your Mac is a dying television. The microphone is only on during a glitch or a sensitivity test.</string>
 	<key>NSScreenCaptureUsageDescription</key>
-	<string>SmackToFix briefly borrows the screen to bend it like a CRT. Frames stay in memory and are never saved.</string>
+	<string>sMACk briefly borrows the screen to bend it like a CRT. Frames stay in memory and are never saved.</string>
 </dict>
 </plist>

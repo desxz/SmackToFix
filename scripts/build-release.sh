@@ -4,7 +4,7 @@ set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
 derived="$root/build/DerivedData"
-app="$derived/Build/Products/Release/SmackToFix.app"
+app="$derived/Build/Products/Release/sMACk.app"
 
 cd "$root"
 rm -rf "$root/dist"
@@ -20,7 +20,7 @@ xcodebuild \
   ARCHS="arm64 x86_64" \
   build
 
-binary="$app/Contents/MacOS/SmackToFix"
+binary="$app/Contents/MacOS/sMACk"
 if ! lipo -info "$binary" | grep -q 'arm64' || ! lipo -info "$binary" | grep -q 'x86_64'; then
   echo "Release binary is not universal." >&2
   lipo -info "$binary" >&2 || true
@@ -30,11 +30,11 @@ fi
 stage="$root/dist/stage"
 rm -rf "$stage"
 mkdir -p "$stage"
-cp -R "$app" "$stage/SmackToFix.app"
+cp -R "$app" "$stage/sMACk.app"
 ln -s /Applications "$stage/Applications"
-ditto -c -k --keepParent "$stage/SmackToFix.app" "$root/dist/SmackToFix.zip"
+ditto -c -k --keepParent "$stage/sMACk.app" "$root/dist/SmackToFix.zip"
 hdiutil create \
-  -volname "SmackToFix" \
+  -volname "sMACk" \
   -srcfolder "$stage" \
   -ov \
   -format UDZO \

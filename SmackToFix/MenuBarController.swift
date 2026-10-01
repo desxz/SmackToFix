@@ -15,7 +15,7 @@ final class MenuBarController: NSObject {
         super.init()
         statusItem.button?.image = StatusIcon.image()
         statusItem.button?.imagePosition = .imageOnly
-        statusItem.button?.toolTip = "SmackToFix — percussive maintenance"
+        statusItem.button?.toolTip = "sMACk"
         statusItem.isVisible = true
         triggerItem.target = self
         sensitivityItem.target = self
@@ -23,6 +23,10 @@ final class MenuBarController: NSObject {
         admitItem.isEnabled = false
 
         let menu = NSMenu()
+        let title = NSMenuItem(title: "sMACk", action: nil, keyEquivalent: "")
+        title.isEnabled = false
+        menu.addItem(title)
+        menu.addItem(.separator())
         menu.addItem(triggerItem)
         menu.addItem(sensitivityItem)
         menu.addItem(.separator())

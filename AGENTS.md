@@ -1,6 +1,6 @@
 # AGENTS.md
 
-SmackToFix is a menu-bar-only macOS app. The desktop glitches like a dying CRT. A slap on the aluminum chassis, heard through the built-in microphone, restores the picture. The joke is the product. Do not turn it into a general audio utility, a screen recorder, or a Dock app.
+sMACk is a menu-bar-only macOS app. The Xcode target is still SmackToFix. The desktop glitches like a dying CRT. A slap on the aluminum chassis, heard through the built-in microphone, restores the picture. The joke is the product. Do not turn it into a general audio utility, a screen recorder, or a Dock app.
 
 The UI copy and this file are English. Reply to the author in Turkish when they write in Turkish.
 
@@ -13,8 +13,8 @@ xcodebuild -project SmackToFix.xcodeproj -scheme SmackToFix -destination 'platfo
 The app is `LSUIElement`. Launch the bundle with `open`, then kill by name:
 
 ```bash
-pkill -9 -x SmackToFix
-open ~/Library/Developer/Xcode/DerivedData/SmackToFix-*/Build/Products/Debug/SmackToFix.app
+pkill -9 -x sMACk
+open ~/Library/Developer/Xcode/DerivedData/SmackToFix-*/Build/Products/Debug/sMACk.app
 ```
 
 Executing the binary directly never creates the status item. After a rebuild, Screen Recording permission often needs to be toggled off and on in System Settings, because the ad-hoc signature changed.

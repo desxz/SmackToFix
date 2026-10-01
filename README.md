@@ -2,11 +2,11 @@
   <img src="assets/logo.png" width="180" alt="A cartoon smack on a glitching laptop">
 </p>
 
-# SmackToFix
+# sMACk
 
-Percussive maintenance for Mac.
+Percussive maintenance for Mac. The Mac is already in the word.
 
-Old televisions had a repair procedure. You hit them. The solder remembered its job, the picture locked, and everyone pretended this was normal. SmackToFix restores the ritual. At random, your desktop loses horizontal sync. Scanlines, a little RGB split, a bored electrical hum. The fix is not in System Settings. The fix is the palm of your hand on the aluminum.
+Old televisions had a repair procedure. You hit them. The solder remembered its job, the picture locked, and everyone pretended this was normal. sMACk restores the ritual. At random, your desktop loses horizontal sync. Scanlines, a little RGB split, a bored electrical hum. The fix is not in System Settings. The fix is the palm of your hand on the aluminum.
 
 ## Install
 
@@ -42,12 +42,12 @@ The first glitch waits at least 30 seconds, then arrives on the schedule you set
 
 ## Permissions
 
-SmackToFix asks the first time you trigger a glitch or open **Test Slap Sensitivity**. It does not ask at launch.
+sMACk asks the first time you trigger a glitch or open **Test Slap Sensitivity**. It does not ask at launch.
 
 - **Microphone.** On only during a glitch or a sensitivity test, and aimed at the built-in mic. It is listening for a thump, not a conversation. Nothing is recorded.
 - **Screen Recording.** The glitch is the desktop, bent. Frames stay in memory and are thrown away when the set “turns off.” If you deny this, you still get an overlay of scanlines and tear bars, and clicks still pass through. The alert appears once per launch. A later glitch does not ask again.
 
-If the switch in **System Settings → Privacy & Security → Screen Recording** is already on and the alert still appears, turn SmackToFix off and on again, then quit and reopen the app. A rebuilt binary is a new stranger to macOS, and the old switch does not cover it.
+If the switch in **System Settings → Privacy & Security → Screen Recording** is already on and the alert still appears, turn sMACk off and on again, then quit and reopen the app. A rebuilt binary is a new stranger to macOS, and the old switch does not cover it.
 
 ## The menu
 
