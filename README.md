@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" width="180" alt="A cracked CRT with a shock ring">
+  <img src="assets/logo.png" width="180" alt="A flat CRT with a crack and an RGB split">
 </p>
 
 # SmackToFix
