@@ -275,6 +275,8 @@ final class GlitchSession: NSObject, NSWindowDelegate {
 }
 
 private enum PermissionCenter {
+    /// Microphone only. Screen Recording is asked later, and only during a glitch.
+    /// Denied and restricted stay denied: calling requestAccess again cannot show a dialog.
     static func microphoneAccess() async -> Bool {
         switch AVCaptureDevice.authorizationStatus(for: .audio) {
         case .authorized:
@@ -285,7 +287,9 @@ private enum PermissionCenter {
                     continuation.resume(returning: granted)
                 }
             }
-        default:
+        case .denied, .restricted:
+            return false
+        @unknown default:
             return false
         }
     }

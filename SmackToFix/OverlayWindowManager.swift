@@ -20,8 +20,10 @@ final class OverlayWindowManager {
     private var captures: [DisplayCapture] = []
     private var fallbackTimer: Timer?
     private var collapsing = false
-    /// Screen Recording prompts once per launch. Asking again shows the system alert even when the switch is already on.
-    private var captureDeclined = false
+    /// Set after ScreenCaptureKit has listed displays. Later glitches reuse that grant and do not ask again.
+    private var screenCaptureAuthorized = false
+    /// Set when one unauthorized attempt failed. Another call would raise the system alert again.
+    private var screenCaptureDenied = false
 
     var windowIDs: [CGWindowID] {
         overlays.compactMap { overlay in
@@ -60,7 +62,11 @@ final class OverlayWindowManager {
     }
 
     func startCapture() async -> Bool {
-        guard !overlays.isEmpty, !captureDeclined else { return false }
+        guard !overlays.isEmpty, !screenCaptureDenied else { return false }
+        // CGPreflightScreenCaptureAccess is the only check that does not present UI.
+        // CGRequestScreenCaptureAccess is not used: it shows the alert on every call,
+        // including when Screen Recording is already switched on.
+        let alreadyAllowed = screenCaptureAuthorized || CGPreflightScreenCaptureAccess()
 
         if windowIDs.isEmpty {
             try? await Task.sleep(nanoseconds: 80_000_000)
@@ -69,8 +75,11 @@ final class OverlayWindowManager {
         let content: SCShareableContent
         do {
             content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: false)
+            screenCaptureAuthorized = true
         } catch {
-            captureDeclined = true
+            if !alreadyAllowed {
+                screenCaptureDenied = true
+            }
             return false
         }
 
@@ -222,6 +231,7 @@ private final class DisplayCapture: NSObject, SCStreamOutput, SCStreamDelegate {
         configuration.height = pixelHeight - pixelHeight % 2
         configuration.pixelFormat = kCVPixelFormatType_32BGRA
         configuration.showsCursor = false
+        configuration.capturesAudio = false
         configuration.queueDepth = 3
         configuration.minimumFrameInterval = CMTime(value: 1, timescale: 30)
         configuration.scalesToFit = true
