@@ -15,7 +15,7 @@ macOS 14 or later. Apple silicon or Intel. Xcode is only for people changing the
 Homebrew:
 
 ```bash
-brew install --cask desxz/smacktofix/smacktofix
+brew install --cask desxz/smack/smack
 ```
 
 That install clears the download quarantine flag. Without a paid Apple notarization, a browser download still makes macOS say it could not verify the app.
