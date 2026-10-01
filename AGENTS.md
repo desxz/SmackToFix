@@ -19,7 +19,7 @@ open ~/Library/Developer/Xcode/DerivedData/SmackToFix-*/Build/Products/Debug/Sma
 
 Executing the binary directly never creates the status item. After a rebuild, Screen Recording permission often needs to be toggled off and on in System Settings, because the ad-hoc signature changed.
 
-Target facts: macOS 14+, Swift 5 language mode, App Sandbox off, `CODE_SIGN_IDENTITY = "-"`, `ENABLE_DEBUG_DYLIB = NO`, bundle id `com.smacktofix.SmackToFix`. `scripts/build-release.sh` produces a universal (arm64 and x86_64) `dist/SmackToFix.zip` and `dist/SmackToFix.dmg`. A `v*` tag publishes both. People install with `brew install --cask desxz/smacktofix/smacktofix` from the `desxz/homebrew-smacktofix` tap, or by dragging the dmg into Applications. The ad-hoc signature is not notarized, so a browser download needs right-click Open the first time. Do not add a curl-pipe installer.
+Target facts: macOS 14+, Swift 5 language mode, App Sandbox off, `CODE_SIGN_IDENTITY = "-"`, `ENABLE_DEBUG_DYLIB = NO`, bundle id `com.smacktofix.SmackToFix`. `scripts/build-release.sh` produces a universal (arm64 and x86_64) `dist/SmackToFix.zip` and `dist/SmackToFix.dmg`. A `v*` tag publishes both. People install with `brew install --cask desxz/smacktofix/smacktofix` from the `desxz/homebrew-smacktofix` tap, or by dragging the dmg into Applications. The ad-hoc signature is not notarized. Homebrew copies the download quarantine flag onto the app, which makes macOS refuse to open it; the cask `postflight` strips that flag. A browser download still needs right-click Open the first time. Do not add a curl-pipe installer.
 
 ## Where things live
 
