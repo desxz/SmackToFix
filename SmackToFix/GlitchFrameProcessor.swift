@@ -103,8 +103,9 @@ final class GlitchFrameProcessor {
     private func roll(_ image: CIImage, extent: CGRect) -> CIImage {
         guard sin(time * 1.7) > 0.72 else { return image }
         let dy = CGFloat(sin(time * 9)) * extent.height * 0.22
-        return image
-            .transformed(by: CGAffineTransform(translationX: 0, y: dy))
-            .cropped(to: extent)
+        let shifted = image.transformed(by: CGAffineTransform(translationX: 0, y: dy))
+        let sign: CGFloat = dy >= 0 ? -1 : 1
+        let wrapped = image.transformed(by: CGAffineTransform(translationX: 0, y: dy + sign * extent.height))
+        return shifted.composited(over: wrapped).cropped(to: extent)
     }
 }

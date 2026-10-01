@@ -252,21 +252,26 @@ private final class DisplayCapture: NSObject, SCStreamOutput, SCStreamDelegate {
         guard type == .screen,
               CMSampleBufferIsValid(sampleBuffer),
               let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        guard let image = processor.process(pixelBuffer: pixelBuffer) else { return }
         deliveryLock.lock()
-        let busy = delivering
-        if !busy {
-            delivering = true
+        if delivering {
+            deliveryLock.unlock()
+            return
         }
+        delivering = true
         deliveryLock.unlock()
-        guard !busy else { return }
+        guard let image = processor.process(pixelBuffer: pixelBuffer) else {
+            deliveryLock.lock()
+            delivering = false
+            deliveryLock.unlock()
+            return
+        }
         let displayID = displayID
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            self.onFrame?(displayID, image)
             self.deliveryLock.lock()
             self.delivering = false
             self.deliveryLock.unlock()
-            self.onFrame?(displayID, image)
         }
     }
 

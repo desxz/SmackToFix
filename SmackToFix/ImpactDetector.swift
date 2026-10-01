@@ -157,14 +157,17 @@ final class ImpactDetector {
     }
 
     let engine = AVAudioEngine()
-    /// Attaches the buzz player after `start()`. Connecting it earlier makes `start()` throw -10875.
-    var outputPrepare: (() -> Void)?
+    /// Connects the buzz player while the engine is stopped, after one priming start.
+    /// Returns whether the player is actually in the graph.
+    var outputPrepare: (() -> Bool)?
     private let processingQueue = DispatchQueue(label: "com.smacktofix.impact")
     private let lock = NSLock()
     private var classifier = ImpactClassifier()
     private var sampleCursor: TimeInterval = 0
     private var tapInstalled = false
     private var running = false
+    /// The player stays connected across later stop/start cycles.
+    private var playbackConnected = false
 
     func start(resetHistory: Bool) throws {
         if running {
@@ -210,11 +213,25 @@ final class ImpactDetector {
             tapInstalled = false
             throw error
         }
+        // The first start() is only there to make the mixer format real. Connecting
+        // the player before that throws -10875. Connecting it while this start is
+        // still running leaves the player disconnected, and play() then throws.
+        // Stop, connect at the mixer rate (often 44100, not the 48000 hardware
+        // rate), then start again. The tap stays installed across that stop.
+        if !playbackConnected, let outputPrepare {
+            engine.stop()
+            if outputPrepare() {
+                playbackConnected = true
+            }
+            do {
+                try engine.start()
+            } catch {
+                input.removeTap(onBus: 0)
+                tapInstalled = false
+                throw error
+            }
+        }
         running = true
-        // The playback node has to join after the engine is running. Connecting it
-        // earlier makes start() throw -10875 because the output hardware format is
-        // still 0 Hz while the input device is being selected.
-        outputPrepare?()
     }
 
     func stop() {

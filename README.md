@@ -63,7 +63,7 @@ If nobody smacks anything, the picture gives up on its own after 75 seconds. The
 
 The detector does not use the accelerometer. It watches the built-in microphone for a short spike: loud enough to clear the threshold, sharper than a vowel, and either bassy or just plain hard. A side-of-the-case tick counts. Speech is too long. A fingertip may still be too polite.
 
-The hum is quiet on purpose. If the speakers are doing a concert, the mic may become confused about who is hitting whom. Turn the room down, or raise the threshold.
+The crackle is there so the dying set has a voice. It is not a concert. If the room is already loud, the mic may become confused about who is hitting whom. Turn the room down, or raise the threshold.
 
 ## Safety valves
 

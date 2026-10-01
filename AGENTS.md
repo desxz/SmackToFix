@@ -58,13 +58,14 @@ One `AVAudioEngine`, created with `ImpactDetector` at launch, is shared by the t
 
 1. Read the input format. If `outputFormat` is 0 Hz or 0 channels, fall back to `inputFormat`.
 2. `installTap` at 1024 frames.
-3. `prepare()`, then `start()`.
-4. Only then call `outputPrepare`, which connects the player.
+3. `prepare()`, then `start()`, so the mixer format becomes real.
+4. `stop()` without removing the tap, then `outputPrepare`, which connects the player at the **mixer** rate. The hardware output is often 48000 Hz while the mixer is 44100 Hz. Connecting at the hardware rate, or connecting while the engine is still running, leaves the player disconnected and `play()` throws.
+5. `start()` again, then schedule the buzz.
 
 Two changes have already shipped a meter that never moves:
 
 - `AudioUnitSetProperty(..., kAudioOutputUnitProperty_CurrentDevice)` on `inputNode` sets the output hardware format to 0 Hz / 0 channels. `start()` then throws **-10875** (`IsFormatSampleRateAndChannelCountValid`) or `canPerformIO`. The UI says **Microphone graph didn't start.** The default input on the development machine is already **MacBook Pro Microphone**. Do not put device selection back.
-- Connecting the player, or calling `engine.prepare()` from `CRTAudio`, before `engine.start()` throws the same -10875. `CRTAudio.attach()` must not prepare the engine itself. `CRTAudio.stop()` stops the player only. `ImpactDetector.stop()` is what stops the engine, and it waits until the collapse finishes so the pop can play.
+- Connecting the player, or calling `engine.prepare()` from `CRTAudio`, before the first `engine.start()` throws the same -10875. `CRTAudio.attach()` must not prepare or start the engine itself, and it must run while the engine is stopped. `CRTAudio.stop()` stops the player only. `ImpactDetector.stop()` is what stops the engine, and it waits until the collapse finishes so the pop can play.
 
 `handle` ignores buffers whose `floatChannelData` is nil, so those buffers do not increment `heardPackets`.
 

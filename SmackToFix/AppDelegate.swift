@@ -51,7 +51,7 @@ final class GlitchSession: NSObject, NSWindowDelegate {
         audio = CRTAudio(engine: detector.engine)
         super.init()
         detector.outputPrepare = { [weak audio] in
-            audio?.attach()
+            audio?.attach() ?? false
         }
     }
 
