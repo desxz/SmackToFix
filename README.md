@@ -20,7 +20,7 @@ brew install --cask desxz/smacktofix/smacktofix
 
 That install clears the download quarantine flag. Without a paid Apple notarization, a browser download still makes macOS say it could not verify the app.
 
-Or download [SmackToFix.dmg](https://github.com/desxz/SmackToFix/releases/latest/download/SmackToFix.dmg), open it, and drag the app to Applications. The first time, right-click the app and choose **Open**. If the dialog only offers Done, open **System Settings → Privacy & Security** and click **Open Anyway**.
+Or download [SmackToFix.dmg](https://github.com/desxz/sMACk/releases/latest/download/SmackToFix.dmg), open it, and drag the app to Applications. The first time, right-click the app and choose **Open**. If the dialog only offers Done, open **System Settings → Privacy & Security** and click **Open Anyway**.
 
 Look in the menu bar. There is no Dock icon.
 
